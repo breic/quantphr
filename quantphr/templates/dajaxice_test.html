@@ -1,0 +1,8 @@
+<h2>dajaxice examples</h2>
+<input type="button" value="Test" onclick="alert('hello');Dajaxice.ajax.myexample(dajaxiceTesting.my_js_callback);" /><br/>
+<input type="button" value="Call Example 1! (String)" onclick="Dajaxice.ajax.example1(callback_example1);" /><br/>
+<input type="button" value="Call Example 2! (Number list)" onclick="Dajaxice.ajax.example2(callback_example2);" /><br/>
+<input type="button" value="Call Example 3! (Sending Array)" onclick="Dajaxice.ajax.example3(callback_example3, {'data':[1,2,3],'name':'Peter'});" /><br/>
+<input type="button" value="Raise Exception" onclick="Dajaxice.ajax.error_example(callback_example_error);" /><br/>
+<input type="button" value="Raise Exception with custom exception callback" onclick="Dajaxice.ajax.error_example(callback_example_error, {},{'error_callback': custom_error});" /><br/>
+<input type="button" value="Complex Example" onclick="Dajaxice.complex.second.complex_example1(callback_complex_example1);" />

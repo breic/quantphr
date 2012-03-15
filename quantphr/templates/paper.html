@@ -1,0 +1,30 @@
+{% with cssArxivId=paper.arxivId|cut:'.' %}
+<li class="paper{% if firstPaper %} paper-first{% endif %}{% if lastPaper %} paper-last{% endif %}" id="{{ cssArxivId }}"/><table border="0"><tr>
+<td valign="top" width="18px" class="paper-actions">
+	<div class="paper-action paper-action-star paper-action-{% if not paper.isFavorite %}not{% else %}is{% endif %}favorite" id="{{ cssArxivId }}" data-arxivId="{{ paper.arxivId }}"></div>
+	<a class="paper-action paper-action-pdf" id="{{ cssArxivId }}" href="{{ paper.linkPdf }}"></a>
+	<a class="paper-action paper-action-abstract" id="{{ cssArxivId }}" href="{{ paper.linkAbsPage }}"></a>
+</td>
+<td width="670px" valign="top">
+<div class="paper-title">
+	{{ paper.title }}
+</div>
+<div class="paper-authors">
+	{% for author in paper.authorsList %}{{ author }}{% if not forloop.last %}, {% endif %}{% endfor %}
+</div>
+
+<div class="paper-abstract" id="{{ cssArxivId }}">
+	{{ paper.abstract }}
+</div>
+{# GOOGLE PLUS ONE BUTTON #} {# documented at https://developers.google.com/+/plugins/+1button/ and https://www.google.com/support/webmasters/bin/topic.py?topic=1634166 #}
+<div class="paper-action-googleplusone">
+	<div class="paper-action paper-action-googleplusone-inner" id="{{ cssArxivId }}">
+		<div class='g-plusone' data-size='small' data-annotation='inline' data-expandTo='right' data-callback='toggleGooglePlusOne' data-href='{{ paper.linkAbsPage }}'></div>
+		{# can also use <g:plusone size="small" ... ></g:plusone> #}
+	</div>
+</div>
+{% if paper.numFavorites >= 1 %}{% if not paper.isFavorite or paper.numFavorites >= 2 %}{# implements (faves>=1 and (faves>=2 or !isFave)) = (faves>=2 or (faves >= 1 and !isFave)) #}	<div class="favorites-count" id="favorites-count-{{ paper.arxivId }}">
+		({{ paper.numFavorites }} favorite{{ paper.numFavorites|pluralize }})
+	</div>{% endif %}{% endif %}
+</td></tr></table></li>
+{% endwith %}

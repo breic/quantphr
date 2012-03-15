@@ -1,0 +1,170 @@
+Interface: 
+	Use Twitter Bootstrap (http://twitter.github.com/bootstrap)!!  [can also look into ThemeForest 'admin' themes, Blueprintcss another alternative with less features?  getskeleton.com is a useful place to start, esp. for cross-platform and mobile CSS]
+	Use more screen space, e.g., with useful sidebars.  
+
+BUG: The login failed doesn't make the username textinput the right color (text or background).  
+
+BUG: The signup button on the first page doesn't respond properly to mouse clicks.  
+
+I should write a function that can export all of the arxiv IDs in the database, and another that can read them all in?
+
+Add an about page, and a contact page.  
+
+BUG: The recent papers view should show the two most recent *updates*, not the two most recent days.  It matters on weekends.  
+
+BUG: Currently downloads the last week of papers even if they are already in the database.  Should either check each ID first, or just run the weekly check if the daily RSS update hasn't been run in the last day.  
+
+BUG: Currently, multi-paragraph arXiv abstracts are loaded as one paragraph (I think; examples are rare).
+Load more arXiv information, e.g., comments.  
+
+BUG: More papers doesn't work more than once in Firefox.  
+
+Move the static files and images to Amazon S3 or another server.  This will speed things up because cookies won't be sent.  See http://iknuth.com/2011/10/deploying-a-django-app-to-heroku-with-easy-static-files-on-s3/
+
+As in Scirate, have a sidebar listing recent activity: faves and comments.  
+
+More features for authenticated users: 
+	Write a view that lists all papers favorited by the current user.  To be useful, it should probably include the arXiv identifiers somewhere.  Possibly put this on a public user page, that is hyperlinked to by the favorites string, and that includes profile information.  
+	Keep track of arXiv updates for papers that the user has favorited (or that many users have favorited).
+	Let users follow each other?  Doesn't seem worthwhile, since most updates (votes) are on the front page anyway.  
+	Integrate with other social sites, e.g., Twitter or Google+.  Possibly add buttons to help people share individual items.  
+
+Get favorites working with anonymous users
+
+In sorting papers, possibly weight anonymous favorites by less than authenticated favorites, possibly put personal favorites higher (or maybe just leave them)
+
+BUG: CACHING PROBLEMS IN CHROME (but not Firefox or Safari): 
+	Rather than keep track of delta changes, it would be nicer to store the list of favorites visible on the current page, and always update this list.  
+	With Chrome, I need to cache every dynamic change to the webpage (including faves status, numFaves, login status, welcome alert, expanded abstract) and update it or it will all be forgotten when the user goes forward and then presses the back button to load the page from cache.  This is a huge pain because I'd like to make more and more changes.  One fix would be to turn off caching for Chrome.  
+		Note: Chrome's address-bar autocomplete is especially crazy, since then it seems not to run onpopstate or onload, or any javascript at all?
+	I have implemented a partial fix, to save the favorites status, but not the rest (e.g., # faves).  The favorites changes should be stored anyway for unauthenticated users, and sent to the server once the user logs in.  (Favorites are saved in sessionStorage, so I think in Chrome if you open a new window with the same page, it will load the page from the cache without accessing the storage.  I could use localStorage instead.)
+	maybe the solution is to store state in the webpage?: var stateObj = { foo: "bar" }; history.replaceState(stateObj, "page 2", "bar.html"); ---doesn't work  SEE https://developer.mozilla.org/en/DOM/Manipulating_the_browser_history
+	As part of the same bug, if you add more days at the bottom, then go forward and back, the new days will still be there but loading even more days will get more recent days instead.  Now this seems to be working.  
+
+Implement favorites, possibly pass the favorites to the user as a cookie?
+	favorites should be persistent
+	List not just the number of favorites, but also who, e.g., "You, john, aram, and five other users/guests(?)", or just the number "5 favorites"
+	let users download the list of papers they have favorited (e.g., from a "Favorites" tab)
+	as in scirate (http://web.archive.org/web/20110719094528/http://scirate.com/ and http://web.archive.org/web/20110716015147js_/http://scirate.com/index.js and http://web.archive.org/web/20110716015226cs_/http://scirate.com/index.css), add a list of most recent scites
+
+Have some indication of where the user is, Daily or Weekly (Latest updates, or Recommended).  This can go in the toolbar as in Twitter, or in the header, or both.  
+
+Move the Javascript code out of base.html and into a more appropriate location.  
+
+For alert dialogs, use the extension of Twitter Bootstrap at http://paynedigital.com/2011/11/bootbox-js-alert-confirm-dialogs-for-twitter-bootstrap .  
+
+The background image is incorrect.  It doesn't implement teleportation.  
+
+Add user authentication, cookies
+	if the user is not logged in, add a popup for creating an account/logging in (see librarything.com)
+	open authentication? : see http://googlecodesamples.com/oauth_playground/ (http://arnab.org/blog/getting-django-auth-openid-work-google-accounts)
+	"all POST forms that are targeted at internal URLs should use the {% csrf_token %} template tag https://docs.djangoproject.com/en/1.3/intro/tutorial04/"
+
+Unit testing of Javascript: see http://stackoverflow.com/questions/300855/looking-for-a-better-javascript-unit-test-tool
+
+Add comments!
+	To encourage their use, add a side button next to each paper, with a short comment field popup (option to go to a longer field) --- this makes it faster to comment
+	RSS feed for comments (see https://docs.djangoproject.com/en/dev/ref/contrib/syndication/)
+	Note that Django has a built-in comments package
+	enable MathJax: http://www.mathjax.org/docs/1.1/platforms/index.html
+	Have commented, from authenticated users, show up on the front page, beneath the paper.  
+	To encourage longer, more serious comments, perhaps call them "reviews" (or is that too formal?).  One reason people don't leave such comments is that nobody replies, and a good review is often comprehensive enough that there is no need to reply or it is intimidating to the average user.  A lightweight feedback system might let people "thank" someone for a good comment.  There don't have to be points for this (although it could be tracked on someone's user profile page), just putting the thank-yous in a user's activity stream would make them feel like their comment wasn't disappearing into the ether.  
+
+More detail on authors
+	Let users claim ownership of authors
+	Use arXiv's author Ids
+	Link from authors to arXiv search fields
+
+One way to build community might be to add more features, sort of like, for example, Astrobites (http://astrobites.com) does for astro-ph.  They include paper summaries, written mostly by graduate students.  
+One other interesting site that is well-built, if quiet, is paperrater.org.  
+
+Some preferences might look like: 
+	quant-ph Subscribe X Only recommended -
+			Show cross-lists X Only recommended -
+			Show updates X Only favorited X
+		actually good enough would be to have primary and secondary categories:
+			primary = see all papers and replacements that someone has recommended (cross-lists & replacements @ bottom)
+			secondary = see only recommended papers (incl. cross-lists)
+			- you always see replacements that you faved
+			what about cross-lists?  
+	Multiple arXiv subscriptions could be managed by a dropdown menu, or something like this on a popup
+
+Better titles, e.g., "Latest updates", "Recommended", and "Favorites"?
+Add more pages: 
+	e.g., a page for any particular paper, accessed at a URL like /papers/xxxx.xxxx (use get_object_or_404(Poll, pk=poll_id) see https://docs.djangoproject.com/en/1.3/intro/tutorial03/ to throw a 404 error when the ID does not exist and/or load the ID from the arXiv)
+
+Ways to load more papers, possibly in the same window, 
+	either infinite scrolling (see http://www.infinite-scroll.com/)
+	or as in twitter's way of loading more papers when you press a button at the end, it downloads the content and appends it to the list
+
+Put in version control and virtualenv installation
+
+Deploy to Heroku
+	- set to download from the arXiv every day
+	add a URL (possibly its own page, possibly on admin) that runs the download script when I go there
+	Alternatives to Heroku: 
+		AppEngine might also work, but it doesn't support ManyToManyFields, so something would have to be hacked
+		there are plenty of other alternatives, ep.io is another good one with a free base (called the "best value" in http://kencochrane.net/blog/2011/06/django-hosting-roundup-who-wins/)
+
+Post on bitbucket/github/google code/...
+	Include an issues tracker?
+
+Get help from other interested people, see, e.g., https://groups.google.com/forum/#!forum/scirate
+
+Download the Django documentation, see https://docs.djangoproject.com/en/1.3/intro/whatsnext/
+
+Add features to highlight top pages
+	for the day (e.g., expand their abstracts automatically)
+	for the week
+	the last top-rated papers that a particular user has missed...
+
+Make sure it works on mobile browsers.  In particular, check that clicking on a paper shows the favorite actions, without a hover required.  
+
+Add a file with the virtualenv commands in it, that can be run with source 'file.txt'
+
+*** Low priority ***
+
+Email services, e.g., http://mailgun.net/pricing
+
+Wishbox feedback: Use 
+<script src="http://www.jotform.com/min/?g=feedback2" type="text/javascript"></script>
+<script type="text/javascript">
+    new JotformFeedback({
+        formId      : "13253700227",
+        buttonText  : "Send Feedback",
+        base        : "http://www.jotform.com/",
+        background  : "#F59202",
+        fontColor   : "#FFFFFF",
+        buttonSide  : "bottom",
+        buttonAlign : "right",
+        type        : false,
+        width       : 440,
+        height      : 420,
+        instant     : true
+    });
+</script>
+
+
+Add an option to upload a .bib file and extract all the arXiv IDs as favorites.  Or any file with xxxx.xxxx entries.  Also to export such files.  
+
+Can use dajax instead of/in addition to dajaxice: see https://github.com/jorgebastida/django-dajax/wiki
+
+An interesting backend feature might be better sorting.  This could really help me.  A priority field filled according to keywords and author names (or last names) might be enough.  Implementing the import favorites feature might give some initial data.  
+Possibly sort the list of papers locally, so caching works for all users?
+	see http://stackoverflow.com/questions/6764426/jquery-ui-sortable-load-order-from-array
+		http://stackoverflow.com/questions/2067602/jquery-sortable-change-the-order-by-js
+		http://jsfiddle.net/hDhWc/
+
+*** OTHER PEOPLE'S SUGGESTIONS ***
+http://dabacon.org/pontiff/?p=3782
+https://groups.google.com/forum/#!forum/scirate
+The key function, I still think, should be to crowdsource your arXiv browsing.  But ideally we would also try to elicit more meaningful information about papers---better comments---and attract a broader community, inside and outside of quantum information.  
+
+*** RESOLVED ***
+Use South for updating the database (or django-evolution)
+
+the paper links currently include version information, incorrectly
+
+BUG: If you load a webpage with a paper already favorited by you and then you remove that favorite, the icon will disappear and you'll need to click or move the mouse to make it appear so it can be favorited again.  (This only happens the first time.)
+
+BUG: Main view and headers should be centered, as in Twitter.  

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found{% endblock %}
+
+{% block content %}
+<script language="JavaScript"><!--
+document.getElementById("body").backgroundImage = '';
+function my_js_callback(data){
+    alert(data.message);
+}
+--></script>
+<h1 style="margin-left:32px;margin-top:32px;">Page not found</h1>
+
+<p style="margin-left:32px;">
+	Sorry, but the requested page could not be found.
+	<a href="/">Return to Quant-ph<i>r</i></a>
+</p>
+{% endblock %}

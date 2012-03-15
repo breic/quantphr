@@ -1,0 +1,14 @@
+\def\c{\ctrl{1}}
+\def\C{\ctrl{-1}}
+\def\t{\targ}
+\def\x{\measureD{X}}
+\def\z{\measureD{Z}}
+\def\q{\qw}
+\def\l{\lstick{\ket 0}}
+\def\L{\lstick{\ket +}}
+\Qcircuit @C=.5em @R=.7em { 
+&\q&\q&\q&\q&\c&\x&&&&&&&&&&\L&\t&\q&\q&\q&\q \\ 
+&&&&\l&\t&\c&\x&&&&&&&&\L&\t&\C&\z \\
+&&&&&\l&\t&\c&\x&&&&&&\L&\t&\C&\z \\
+&&&&&&\l&\t&\q&\q&\q&\q&\q&\q&\q&\C&\z
+}

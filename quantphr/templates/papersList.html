@@ -1,0 +1,15 @@
+<div class="page-outer">
+	<div class="main-content">
+		
+	{#<p>Found {{ papersList.papers|length }} paper{{ papersList.papers|pluralize }} on {{ papersList.date }}.</p>#}
+		
+	<div class="date">{{ papersList.date }}</div>
+	
+	<ul class="papersList">		{# good info on css list styling is at www.alistapart.com/articles/taminglists #}
+		{% for paper in papersList.papers %} {% with firstPaper=forloop.first lastPaper=forloop.last %}
+			{% include "paper.html" %}
+		{% endwith %} {% endfor %}
+	</ul>
+				
+	</div>	{# main-content #}
+</div>	{# page-outer #}

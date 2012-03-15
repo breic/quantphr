@@ -1,0 +1,351 @@
+/* This should be made static */
+
+/*****
+ * This is my .css
+ *****/
+.alert-message {
+  position: relative;
+  padding: 7px 15px;
+  margin-bottom: 18px;
+  color: #404040;
+  background-color: #eedc94;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#fceec1), to(#eedc94));
+  background-image: -moz-linear-gradient(top, #fceec1, #eedc94);
+  background-image: -ms-linear-gradient(top, #fceec1, #eedc94);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fceec1), color-stop(100%, #eedc94));
+  background-image: -webkit-linear-gradient(top, #fceec1, #eedc94);
+  background-image: -o-linear-gradient(top, #fceec1, #eedc94);
+  background-image: linear-gradient(top, #fceec1, #eedc94);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fceec1', endColorstr='#eedc94', GradientType=0);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #eedc94 #eedc94 #e4c652;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  border-width: 1px;
+  border-style: solid;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.alert-message .close {
+  margin-top: 1px;
+  *margin-top: 0;
+}
+.alert-message a {
+  font-weight: bold;
+  color: #404040;
+}
+.alert-message.danger p a,
+.alert-message.error p a,
+.alert-message.success p a,
+.alert-message.info p a {
+  color: #ffffff;
+}
+.alert-message h5 {
+  line-height: 18px;
+}
+.alert-message p {
+  margin-bottom: 0;
+}
+.alert-message div {
+  margin-top: 5px;
+  margin-bottom: 2px;
+  line-height: 28px;
+}
+.alert-message .btn {
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.alert-message.block-message {
+  background-image: none;
+  background-color: #fdf5d9;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  padding: 14px;
+  border-color: #fceec1;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.alert-message.block-message ul, .alert-message.block-message p {
+  margin-right: 30px;
+}
+.alert-message.block-message ul {
+  margin-bottom: 0;
+}
+.alert-message.block-message li {
+  color: #404040;
+}
+.alert-message.block-message .alert-actions {
+  margin-top: 5px;
+}
+.alert-message.block-message.error, .alert-message.block-message.success, .alert-message.block-message.info {
+  color: #404040;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.alert-message.block-message.error {
+  background-color: #fddfde;
+  border-color: #fbc7c6;
+}
+.alert-message.block-message.success {
+  background-color: #d1eed1;
+  border-color: #bfe7bf;
+}
+.alert-message.block-message.info {
+  background-color: #ddf4fb;
+  border-color: #c6edf9;
+}
+.alert-message.block-message.danger p a,
+.alert-message.block-message.error p a,
+.alert-message.block-message.success p a,
+.alert-message.block-message.info p a {
+  color: #404040;
+}
+
+.dropdown-menu {
+  z-index: 2000;	/* override the Twitter Bootstrap default, so that menus appear over modal dialogs */
+}
+
+.container {
+  width: 700px;
+}
+
+body {
+	/* background-image: url(/static/images/cnotgates.png); */
+	/* twitter's bg image: background-image: url(https://si0.twimg.com/images/themes/theme1/bg.png); */
+	background-color: #C0DEED; /* #f5f5f5 or #C0DEED */
+	background-repeat: repeat-x;	/* no-repeat, repeat-x, repeat-y, repeat */
+	background-attachment: fixed;	/* absolute/fixed */
+	background-position: left 0px;
+	color: #333333;
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+
+ul.papersList {	/* list that wraps the papers, can be sorted client-side */
+	text-indent: 0;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 10px;
+}
+#topbar-navigation {
+	width:100%;
+	position:absolute;
+	top:0;left:0;
+	height:40px;
+	background-color: rgba(0,0,0,1);
+	background:#111;background:-webkit-gradient(linear,left top,left bottom,from(#888),to(#333));background:-moz-linear-gradient(top,#999,#444);background:transparent\9;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999',endColorstr='#444444');box-shadow:0 1px 2px rgba(0,0,0,0.5);-moz-box-shadow:0 1px 2px rgba(0,0,0,0.5);-webkit-box-shadow:0 1px 2px rgba(0,0,0,0.5);
+}
+#topbar-wrap {
+	padding-top: 32px;
+}
+a.quantphr {
+	float: left;
+	text-align: left;
+	font-size: large;
+	font:bold 18px Arial,sans-serif;
+	margin-left:55px;
+	margin-top:12px;
+	color: #fff;
+	text-shadow:1px 2px 0 #444;
+	display: inline;
+	text-decoration: none;
+}
+
+a.navigation {
+	float: left;
+	margin:13px;
+	font-size: normal;
+	font:14px Arial,sans-serif;
+	color: #eee;
+	text-decoration: none;
+}
+a.navigation:hover {
+	color: #fff;
+}
+a.navigation-daily {
+	margin-left:450px;
+}
+
+.date {
+	text-align: left;
+	font-size: large;
+	font:bold 18px Arial,sans-serif;
+	margin-top:2px;margin-left:50px;margin-right:20px;margin-bottom:8px;
+	color: #000;
+	text-shadow:1px 1px 0 #fff;
+}
+
+.page-outer {	/* two page-outer divs are used to center the main content and header horizontally */
+	width:764px;	/* = 700+2*32 */
+	margin: auto;
+}
+
+.main-content {
+	width:700px;
+	margin-left:32px;
+	margin-top:32px;	/* 20px originally */
+	margin-bottom:20px;
+	margin-right:20px;
+	padding-bottom:10px;	/* padding is the space inside the border, margin the space outside it */
+	padding-top:20px;
+	padding-left:0px;	/* no padding on the content, since division lines should go all the way to the edge */
+	padding-right:0px;
+	-webkit-box-shadow:0 0 3px rgba(0,0,0,0.2);-moz-box-shadow:0 0 3px rgba(0,0,0,0.2);
+	-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;
+	background-color: rgba(256,256,256,0.95);
+}
+
+.more-papers {
+	background-color: rgba(203, 233, 244, 0.95);
+	-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;
+	border: 1px solid rgba(1,1,1,.25);
+	text-align: center;
+	font-size: large;
+	font:14px Arial,sans-serif;
+	text-decoration: none;
+	text-shadow:0 1px 0 #eee;
+	height: 25px;
+}
+.more-papers:hover {
+	background-color: rgba(173, 222, 252, 0.95);
+	border: 1px solid rgba(1,1,1,.5);
+	cursor: pointer;
+}
+.more-papers p {
+	line-height: 1.25em;
+	margin: 0;
+	border: 0;
+}
+
+.interday-spacer {
+	height:20px;
+}
+
+aa:link { color:#cde; text-decoration: none; }
+aa:visited { color:blue; text-decoration: none; } 
+aa:hover { text-decoration: underline; } 
+
+.paper {
+	position: relative;
+	padding-left:6px;padding-right:6px;
+	padding-top:6px;
+	padding-bottom:6px;
+	display:block;
+	border-top:1px solid;
+	border-color:#eee;
+}
+.paper:hover {
+/* reduce the padding by one, so the total height stays the same when a border is added to the bottom.  float the element so that it appears above the next list item (which otherwise would obscure the border) */
+	padding-bottom:5px;
+	background-color:#E3F1FA;
+	border-top:1px solid;
+	border-bottom:1px solid;
+	border-color:#b2d2dd;
+	float:top;
+	cursor: pointer;
+}
+/* I have special cases for the first and last list items, so they don't draw borders above or below them, resp. */
+.paper-first{
+	border-top: 0;
+}
+.paper-first:hover{
+	border-top: 0;
+}
+.paper-last{
+	border-bottom: 0;
+}
+.paper-last:hover{
+	border-bottom: 0;
+	padding-bottom: 6px;
+}
+
+.paper-title {
+	text-align: left;
+	font-size: "+1";
+	font:18px Arial,sans-serif;
+	margin-left: 9px;
+	padding-top: 3px;
+	text-decoration: none;
+	color: #000;
+}
+.paper-authors {
+	text-align: left;
+	font-size: medium;
+	font:14px Arial,sans-serif;
+	margin-left:12px;
+	color:#666;
+	text-shadow:0 1px 0 #eee;
+}
+.paper-abstract {
+	display: none;	/* initially invisible */
+	font-size: medium;
+	padding: 5px;
+	color: #000;
+	line-height: 1.2;
+}
+
+.paper-action {
+	width: 15px;
+	height: 15px;
+	display: block;
+}
+
+.paper-action-googleplusone {
+	padding-top: 5px;
+	margin-left: 12px;
+	height: 15px;
+	/* display: none;	/* visibility:hidden on the outer div won't affect the iframe */
+}
+
+.paper-action-notfavorite {
+	background-image: url(/static/images/sprite-icons.png);
+	background-repeat: no-repeat;
+	background-position:-32px 0;
+	width:15px;height:15px;
+	margin: 0px;
+	display: block;
+	/* the background tags can also be combined into one */
+	/* background:url(/static/images/sprite-icons.png) no-repeat scroll 0 0 transparent; */
+}
+.paper-favorite:hover{
+	background-position:-48px 0;
+}
+.paper-action-isfavorite {
+	background-image: url(/static/images/sprite-icons.png);
+	background-repeat: no-repeat;
+	background-position:-64px 0;
+	width:15px;height:15px;
+	margin: 0px;
+	display: block;
+}
+.favorites-count {
+	text-align: left;
+	font-size: medium;
+	font:11px Arial,sans-serif;
+	margin-left:12px;
+	margin-top:3px;
+	color:#999;
+}
+
+.alert-message#welcome-message {
+	border:1px solid #777; 
+	box-shadow: 3px 3px 2px #888888;
+}
+
+.paper-action-pdf {
+	background-image: url(/static/images/pdficon_small.gif);
+	width:17px;
+	height:17px;
+	margin-top:6px;
+	margin-bottom:6px;
+}
+.paper-action-abstract {
+	background-image: url(/static/images/arxiv_favicon.png);
+	width:16px;
+	height:16px;
+	margin-left:1px;
+}

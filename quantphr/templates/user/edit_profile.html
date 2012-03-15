@@ -1,0 +1,53 @@
+<div class="modal form{% if user.is_active and user.last_login == user.date_joined %}{% else %} hide {% endif %}" id="editProfileModal">
+	<div class="modal-header">
+		<!--<a class="close" onclick="document.getElementById('editProfileModal').style.display='none';" href="#">&times;</a>-->
+		<a class="close" data-dismiss="modal">×</a>
+		{% if user.is_active and user.last_login == user.date_joined %}
+		<h3>Thank you for joining us! <br /> Please take a moment to fill in your profile.</h3>
+		{% else %}
+		<h3>Edit your profile.</h3>
+		{% endif %}
+	</div>
+	<div class="modal-body">
+		
+	    <label>Name</label>
+	    <input type="text" class="span2" id="first_name" placeholder="First" value="{{ user.first_name }}">
+	    <input type="text" class="span3" id="last_name" placeholder="Last" value="{{ user.last_name }}">
+	    <label>Institution</label>
+	<input type="text" class="span5" id="institution" style="margin: 0 auto;" data-provide="typeahead" data-items="6" data-source='["UC Berkeley","Caltech","Perimeter Institute","University of Waterloo","Institute for Quantum Computing (IQC), University of Waterloo","Yale","MIT","Harvard","Google, Inc.","UC Irvine","NYU","Stanford","Princeton","Georgia Tech","University of Southern California (USC)","Kavli Institute for Theoretical Physics, UCSB", "National University of Singapore (NUS)", "Centre for Quantum Technologies (CQT)", "Center for Theoretical Physics (CTP), MIT"]' value="{{ user.get_profile.institution }}">
+	</div>
+ <div class="modal-footer">
+		<a href="#" class="btn btn-primary" onClick="
+			Dajaxice.ajax.editProfile(function() {}, {'first_name':$('#first_name')[0].value, 'last_name':$('#last_name')[0].value, 'institution':$('#institution')[0].value})
+		" data-dismiss="modal">Save changes</a> {# Note: There is not now any callback to catch validation errors, the form always dismisses #}
+		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+	</div>
+{# {% csrf_token %} #}{# I am not sure how to get csrf_token working with an Ajax form submission! #}
+</div>
+
+{% comment %}
+<form method="POST" action="">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    <tr><td>
+    <input type="submit" name="submit" value="{{ action }} " id="submit">
+    </td></tr>
+    </table>
+</form>
+{% endcomment %}
+
+{% comment %}  <!-- Here is a username/password entry form, not needed with OpenID authn. -->
+  <form action="" class="pull-right" method="" id="loginForm">
+	<div class="clearfix" style="margin-bottom:0px;" id="loginForm-clearfix">
+	<span class="label important" id="loginFailed" style="visibility:hidden;">Login failed</span>
+	<input class="input-small error" type="text" placeholder="Username" name="username" id="username">
+    <input class="input-small error" type="password" placeholder="Password" name="password" id="password">
+	
+    <button class="btn" type="button" onClick="
+		event.stopPropagation();
+		Dajaxice.ajax.login(login_callback, {'username':this.form.elements['username'].value, 'password':this.form.elements['password'].value });
+	">Sign in</button>
+	</div>
+  {# {% csrf_token %} #}</form>
+{% endcomment %}

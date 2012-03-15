@@ -1,0 +1,25 @@
+{# Template for an admin URL that manually runs the script to check the latest arXiv papers #}
+
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}: Update papers{% endblock %}
+
+{% block content %}
+
+<div class="page-outer">
+<div class="main-content">
+<p style="margin-left:30px;">
+	
+	Database update completed.  
+	
+	{% with numNewAuthors=numNewRSSAuthors|add:numNewWeeklyAuthors %}
+		Loaded {{ numNewRSSPapers }} new RSS and {{ numNewWeeklyPapers }} new weekly papers, with {{ numNewAuthors }} total new author{{ numNewAuthors|pluralize }}.  
+	{% endwith %}
+	
+	Check server log for details.
+
+</p>
+</div>
+</div>
+
+{% endblock content %}

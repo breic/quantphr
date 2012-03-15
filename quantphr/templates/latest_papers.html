@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}: Latest papers{% endblock %}
+
+{% block content %}
+
+{{ block.super }}
+
+{% if not allPapersLists %}
+	<div class="main-content">No papers found.</div>
+{% else %}
+
+{% for papersList in allPapersLists %}
+	
+	{% include "papersList.html" %}
+	
+	{% if not forloop.last %}
+		<div class="interday-spacer"></div>
+	{% endif %}
+
+{% endfor %}	{# {% for papersList in allPapersLists %} #}
+
+{# <script type="text/javascript"><!-- --></script> #}
+
+{% if not bunched %}
+<div id="more-papers-anchor"></div>
+<div class="page-outer">
+	<div class="main-content more-papers" id="more-papers" onclick="event.stopPropagation();getMorePapers({{ days|add:'1' }});">
+		<p>Older papers...</p>
+	</div>	{# main-content #}
+</div>	{# page-outer #}
+{% endif %}
+
+{% endif %}		{# {% if not allPapersLists %} #}
+	
+{% comment %}<div class="main-content">
+	<p>Found {{ papers|length }} paper{{ papers|pluralize }} on {{ date }}.</p>
+</div>{% endcomment %}
+
+{% endblock content %}
+
+{% block footer %}
+{{ block.super }}
+{% endblock %}

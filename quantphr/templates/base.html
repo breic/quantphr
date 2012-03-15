@@ -1,0 +1,230 @@
+{% load dajaxice_templatetags %}
+{% comment %}{% load i18n %}Internationalization lets you {% trans "strings" %}{% endcomment %}
+
+<!doctype html>
+{# <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"> #}
+<html lang="en">
+<head>
+	
+    <title>{% block title %}
+		Quant-phr
+	{% endblock %}</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+	<!-- Javascript packages -->
+	<script src="{{ STATIC_URL }}js/jquery-1.7.min.js"></script>
+	{# <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> #}
+	<!-- <script src="{{ STATIC_URL }}js/google-code-prettify/prettify.js"></script><script>$(function () { prettyPrint() })</script> -->
+	<script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+	<!-- <script src="{{ STATIC_URL }}js/bootstrap-alerts.js"></script> -->
+	<script src="{{ STATIC_URL }}js/bootstrap-buttons.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap-transition.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap-collapse.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap-tooltip.js"></script>
+	<!-- <script src="{{ STATIC_URL }}js/bootstrap-twipsy.js"></script> -->
+	<!-- <script src="{{ STATIC_URL }}js/bootstrap-popover.js"></script> -->
+	<!-- <script src="{{ STATIC_URL }}js/bootstrap-scrollspy.js"></script> -->
+	<!-- <script src="{{ STATIC_URL }}js/bootstrap-tabs.js"></script> -->
+	
+	<!-- Javascript -->
+	{% dajaxice_js_import %}	{# in a production environment, should generate this js statically; see http://docs.dajaxproject.com/dajaxice/production-environment.html #}
+	<!-- <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-alerts.js"></script> -->
+	<script type="text/javascript">cacheCheckKey = '{{ uniqueKey }}';</script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/quantphr.js"></script>
+
+	<!-- Google+ Script, remove it for faster page load -->
+	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/quantphr.css">	{# <style></style> #}
+	
+	<!-- Google Analytics code -->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-29605952-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+</head>
+
+<body {# onload="checkIfCached({{ uniqueKey }});" #}>	{# to detect if the html is cached (we don't care if the js is cached) #}
+	{# margin is outside the element, then border, then padding inside the border #}
+	
+	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Quant-ph<i>r</i></a>
+          <ul class="nav">
+            <li {% if not bunched %}class="active"{% endif %}><a href="/papers/latest/2/">Latest papers</a></li>
+            <li {% if bunched %}class="active"{% endif %}><a href="/papers/sorted/7/">Last week</a></li>
+		  </ul>
+		
+		  <ul class="nav pull-right">
+		{% if not user.is_authenticated %}
+			<div class="alert-actions">
+				<button class="btn btn-primary pull-right" data-toggle="modal" style="margin-top:5px;" data-target="#openIDLoginModal" >Sign In</button>
+				<!--<a class="btn primary pull-right" type="button" style="margin-top:5px;" href="/openid/login/">Sign In</a>-->
+				</div>		
+		{% else %}
+	          <li class="dropdown" id="commandsMenu">
+	            <a class="dropdown-toggle" data-toggle="dropdown" href="#commandsMenu" style="color:#fff;">
+					{% if user.first_name or user.last_name %}
+						{{ user.first_name }} {{ user.last_name }}
+					{% else %}
+						{{ user.username }}
+					{% endif %}
+					<b class="caret"></b>
+				</a>
+	            <ul class="dropdown-menu">
+	              <li><a href="#">Subscriptions</a></li>
+				  <li><a href="/papers/favorites/">Favorites</a></li>
+				  <li><a href="#">Import favorites</a></li>
+				  <li><a href="/papers/favorites/export/">Export favorites</a></li>
+				  <li><a href="#" data-toggle="modal" data-target="#editProfileModal">Edit profile</a></li>
+	              <li class="divider"></li>
+	              <li><a href="/accounts/logout/">Sign out</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+		{% endif %}
+        </div>
+      </div>
+    </div>
+	
+	{% comment %} {# dajaxice test code #} 
+		{% include "dajaxice_test.html" %}
+	{% endcomment %}
+
+	{% block content %}
+	
+	{% comment %}
+	<script type="text/javascript">
+	function change() {
+		testStateVar = 'click';
+		document.getElementById('testStateVar').innerHTML = testStateVar;
+	}
+	</script>
+	<p id="testStateVar" onclick="change();">
+	var stateObj = { foo: "bar" };
+	history.pushState(stateObj, "page 2", "bar.html");
+	</p>
+	{% endcomment %}
+	
+	
+	
+	{% if not user.is_active %}
+	 	{# I am not sure how to use bootstrap-alerts.js, so am just using CSS #}
+	<div class="container" style="margin-top:32px;margin-bottom:-32px;">
+		
+		<div class="modal hide {# fade #}" id="openIDLoginModal">
+			<link type="text/css" rel="stylesheet" href="/static/css/openid.css" />
+	    	<script type="text/javascript" src="/static/js/openid-jquery.js"></script>
+		    <script type="text/javascript" src="/static/js/openid-en.js"></script>
+		    <script type="text/javascript">
+		        jQuery(document).ready(function() {
+		            openid.init('openid_identifier');
+		        });
+		    </script>
+		    
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a>
+				<h3>Create an account or sign in</h3>
+			</div>
+			<div class="modal-body">
+				{% if form.errors %}
+				<p class="errors">"Please correct errors below:" <br />
+				    {% if form.openid_identifier.errors %}
+				    <span class="error">{{ form.openid_identifier.errors|join:", " }}</span>
+				    {% endif %}
+				    {% if form.next.errors %}
+				    <span class="error">{{ form.next.errors|join:", " }}</span>
+				    {% endif %}
+				</p>
+				{% endif %}{# form.errors #}
+				<form id="openid_form" name="fopenid" action="/openid/login/{#{{ action }}#}" method="post">
+				    {% csrf_token %}
+				    <fieldset>
+				        <div id="openid_choice">
+				            <p>Please click the account to identify yourself with:</p>
+				            <div id="openid_btns"></div>
+				        </div>
+				        <div id="openid_input_area">
+				            <label for="id_openid_identifier">"OpenID:"</label><br />
+				            {{ form.openid_identifier }}
+				            <input id="openid_submit" name="bsignin" type="submit" value="Sign in"/>
+				        </div>
+				 {% if next %}
+				        <input type="hidden" name="next" value="{{ next }}" />
+				 {% endif %}
+				    </fieldset>
+				</form>
+				
+			</div>
+		 <div class="modal-footer">
+				{# <a href="#" class="btn btn-primary">Save changes</a> #}
+				{# <a href="#" class="btn">Close</a> #}
+			</div> 
+		</div>				
+		
+	<div id="welcome-message" class="alert-message block-message success fade in" data-alert>			
+		<a class="close" onclick="document.getElementById('welcome-message').style.display='none';" href="#">&times;</a>
+		<p class="lead"><strong>Welcome to Quant-ph<i>r</i>!</strong></p>
+		<p style="font-size: large; line-height: 1.3;">
+			Quant-ph<i>r</i> crowd-sources your daily arXiv/quant-ph browsing.<br />
+		<!--Instructions: -->
+			Click a title to see the abstract.  
+			Star the papers you like.  <!--Click the star to recommend it.-->  
+			The pdf is there, too.  
+			<!--You are also encouraged to leave comments or brief reviews.-->  That's it!</p><p></p>
+					
+		<div class="alert-actions">
+			<button class="btn btn-primary btn-large" data-toggle="modal" data-target="#openIDLoginModal" >Sign Up</button>
+		</div>	
+
+		<div class="alert-actions">
+			<button class="btn btn-primary btn-large" data-toggle="modal" data-target="#editProfileModal" >Edit profile</button>
+		</div>
+	</div>
+	</div>
+	{% endif %}
+	
+	{% include 'user/edit_profile.html' %}
+	
+	<!--<div class="container" style="margin-top:32px;margin-bottom:-32px;">
+	<div id="extra-commands" class="alert-message block-message success fade in" data-alert>			
+		<a class="close" onclick="document.getElementById('extra-commands').style.display='none';" href="#">&times;</a>
+		<p><span class="label notice">Notice</span> Here are some commands that aren't otherwise linked to: </p>
+		<p>Other paper views</p>
+		{# <div class="alert-actions"><a class="btn small" href="/accounts/logout/">Log out</a></div> #}
+	</div>
+	</div>-->
+	
+	{% endblock content %}
+
+	{% block footer %}	
+	
+	<script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		{% comment %}$('#openIDLoginModal').on('hidden', function () {
+			//$('.btn').button('reset');	// trying to get the button to toggle out again when the dialog is dismissed, but it doesn't seem to work
+		});{% endcomment %}
+			
+		//$(".collapse").collapse();
+		
+		// Note: These actions will need to be called again when new papers are loaded into the DOM
+		registerPaperActions();
+	})
+	</script>
+	{% endblock %}
+</body>
+</html>
