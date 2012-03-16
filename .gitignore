@@ -7,3 +7,5 @@ lib
 Users.txt
 *.key
 *.db
+*.tmproj
+

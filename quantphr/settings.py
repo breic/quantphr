@@ -185,7 +185,7 @@ LOGIN_REDIRECT_URL = '/'
 #SITE_MEDIA_PATH = os.path.join(os.path.abspath(os.path.curdir), 'static')
 # For Profiles
 AUTH_PROFILE_MODULE = 'user.UserProfile'
-OPENID_SREG_REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
+OPENID_SREG_REQUIRED_FIELDS = ['email']	#'first_name', 'last_name'
 
 ####
 ## Configuration for django-social-auth

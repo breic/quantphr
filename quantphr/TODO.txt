@@ -1,8 +1,7 @@
 Interface: 
 	Use Twitter Bootstrap (http://twitter.github.com/bootstrap)!!  [can also look into ThemeForest 'admin' themes, Blueprintcss another alternative with less features?  getskeleton.com is a useful place to start, esp. for cross-platform and mobile CSS]
 	Use more screen space, e.g., with useful sidebars.  
-
-BUG: The login failed doesn't make the username textinput the right color (text or background).  
+	I'd like to experiment with more interesting UIs, e.g., a multi-column view.  A more condensed view that only shows the titles, not authors, for less interesting papers.  The NY Times sure manages to condense its articles down.  Featured papers from the last week or so.  A sidebar, with recent updates (comments, favorites, reviews, revisions to papers you have faved, etc.).  
 
 BUG: The signup button on the first page doesn't respond properly to mouse clicks.  
 
@@ -49,7 +48,7 @@ Implement favorites, possibly pass the favorites to the user as a cookie?
 
 Have some indication of where the user is, Daily or Weekly (Latest updates, or Recommended).  This can go in the toolbar as in Twitter, or in the header, or both.  
 
-Move the Javascript code out of base.html and into a more appropriate location.  
+X Move the Javascript code out of base.html and into a more appropriate location.  
 
 For alert dialogs, use the extension of Twitter Bootstrap at http://paynedigital.com/2011/11/bootbox-js-alert-confirm-dialogs-for-twitter-bootstrap .  
 
@@ -164,6 +163,8 @@ The key function, I still think, should be to crowdsource your arXiv browsing.  
 Use South for updating the database (or django-evolution)
 
 the paper links currently include version information, incorrectly
+
+BUG: The login failed doesn't make the username textinput the right color (text or background).  (This form has now been removed.)
 
 BUG: If you load a webpage with a paper already favorited by you and then you remove that favorite, the icon will disappear and you'll need to click or move the mouse to make it appear so it can be favorited again.  (This only happens the first time.)
 
